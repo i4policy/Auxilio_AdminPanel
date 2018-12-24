@@ -1,4 +1,4 @@
-# i4policy-taskforce-admin
+# auxilio-admin
 
 ## Project setup
 ```
@@ -25,5 +25,5 @@ yarn run test
 yarn run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Production
+use `.env.production` file to change environmental variables
