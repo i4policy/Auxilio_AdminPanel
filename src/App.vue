@@ -1,22 +1,12 @@
 <template>
-  <v-app>
-      <notifications/>
-      <router-view></router-view>
-  </v-app>
+  <VApp>
+    <Notifications :overlap="true" />
+    <RouterView></RouterView>
+  </VApp>
 </template>
 
 <script>
-// import HelloWorld from '@/components/HelloWorld.vue';
-
 export default {
-  name: 'App',
-  components: {
-    // HelloWorld,
-  },
-  data() {
-    return {
-      //
-    };
-  },
+  name: 'App'
 };
 </script>

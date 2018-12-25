@@ -1,39 +1,24 @@
 <template>
-  <v-layout
-    justify-center
-    row
-    wrap
-  >
-    <v-flex xs6>
-      <v-form @submit.prevent="save">
-        <v-toolbar
-          dense
-          class="grey lighten-4 elevation-2 mb-1"
-        >
-          <v-tooltip bottom>
-            <v-btn
-              slot="activator"
-              icon
-              @click="$router.push({ name: 'agenda-list' })">
-              <v-icon>arrow_back</v-icon>
-            </v-btn>
+  <VLayout justify-center row wrap>
+    <VFlex xs6>
+      <VForm @submit.prevent="save">
+        <VToolbar dense class="grey lighten-4 elevation-2 mb-1">
+          <VTooltip bottom>
+            <VBtn slot="activator" icon @click="$router.push({ name: 'agenda-list' })">
+              <VIcon>arrow_back</VIcon>
+            </VBtn>
             <span>cancel</span>
-          </v-tooltip>
-          <v-spacer/>
+          </VTooltip>
+          <VSpacer />
           <span class="headline">Edit agenda</span>
-          <v-spacer/>
-        </v-toolbar>
+          <VSpacer />
+        </VToolbar>
 
-        <v-card
-          tile
-          class=" pa-3"
-        >
-          <form-error-messages
-            :messages="errorMessage" />
-          <v-layout column>
-            <v-flex
-              xs12>
-              <v-text-field
+        <VCard tile class=" pa-3">
+          <FormErrorMessages :messages="errorMessage" />
+          <VLayout column>
+            <VFlex xs12>
+              <VTextField
                 v-validate="'required'"
                 v-model="item.title"
                 :error-messages="errors.collect('Title')"
@@ -42,10 +27,9 @@
                 outline
                 background-color="white elevation-1"
               />
-            </v-flex>
-            <v-flex
-              xs12>
-              <v-textarea
+            </VFlex>
+            <VFlex xs12>
+              <VTextarea
                 v-model="item.description"
                 :error-messages="errors.collect('Description')"
                 label="Description"
@@ -53,31 +37,22 @@
                 outline
                 background-color="white elevation-1"
               />
-            </v-flex>
-          </v-layout>
-        </v-card>
-        <v-layout>
-          <v-toolbar>
-            <v-spacer/>
-            <v-btn
-              color="defualt"
-              @click="$router.push({ name: 'agenda-list' })"
-              type="button"
-            >
+            </VFlex>
+          </VLayout>
+        </VCard>
+        <VLayout>
+          <VToolbar>
+            <VSpacer />
+            <VBtn color="defualt" @click="$router.push({ name: 'agenda-list' })" type="button">
               cancel
-            </v-btn>
-            <v-btn
-              color="primary"
-              type="submit"
-            >
-              save
-            </v-btn>
-            <v-spacer/>
-          </v-toolbar>
-        </v-layout>
-      </v-form>
-    </v-flex>
-  </v-layout>
+            </VBtn>
+            <VBtn color="primary" type="submit"> save </VBtn>
+            <VSpacer />
+          </VToolbar>
+        </VLayout>
+      </VForm>
+    </VFlex>
+  </VLayout>
 </template>
 
 <script>
@@ -89,7 +64,7 @@ export default {
     return {
       resourceName: 'Agenda',
       errorMessage: null,
-      item: {},
+      item: {}
     };
   },
   computed: {},

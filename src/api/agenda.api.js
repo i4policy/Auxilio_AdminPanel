@@ -20,7 +20,7 @@ const AgendaAPI = {
   },
   remove(id) {
     return Request.delete(`${API_ROOT}${PATH}/${id}`);
-  },
+  }
 };
 
 export default AgendaAPI;

@@ -3,7 +3,6 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-
 const core = {
   namespaced: true,
   state: {
@@ -27,21 +26,20 @@ const core = {
 const layout = {
   namespaced: true,
   state: {
-    navDrawerToggle: true,
+    navDrawerToggle: true
   },
   getters: {},
   mutations: {
     toggleNavBar(state) {
       // eslint-disable-next-line
       state.navDrawerToggle = !state.navDrawerToggle;
-    },
-  },
+    }
+  }
 };
-
 
 export default new Vuex.Store({
   modules: {
     layout,
-    core,
-  },
+    core
+  }
 });

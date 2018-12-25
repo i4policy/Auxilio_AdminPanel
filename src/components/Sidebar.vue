@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer
+  <VNavigationDrawer
     v-model="drawerStatus"
     :width="265"
     :style="cssProps"
@@ -8,44 +8,44 @@
     fixed
     clipped
   >
-    <v-list>
+    <VList>
       <template v-for="menu in menus">
-        <v-list-tile v-if="!menu.children" :key="menu.title" :to="menu.path" exact ripple>
-          <v-list-tile-action>
-            <v-icon>{{ menu.icon }}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>{{ menu.title }}</v-list-tile-title>
-        </v-list-tile>
+        <VListTile v-if="!menu.children" :key="menu.title" :to="menu.path" exact ripple>
+          <VListTileAction>
+            <VIcon>{{ menu.icon }}</VIcon>
+          </VListTileAction>
+          <VListTileTitle>{{ menu.title }}</VListTileTitle>
+        </VListTile>
 
-        <v-list-group
+        <VListGroup
           v-if="menu.children"
           :key="menu.title"
           :prepend-icon="menu.icon"
           :value="true"
           no-action
         >
-          <v-list-tile slot="activator">
-            <v-list-tile-title>{{ menu.title }}</v-list-tile-title>
-          </v-list-tile>
+          <VListTile slot="activator">
+            <VListTileTitle>{{ menu.title }}</VListTileTitle>
+          </VListTile>
 
-          <v-list-tile
+          <VListTile
             v-for="submenu in menu.children"
             :key="submenu.title"
             :to="submenu.path"
             ripple
             exact
           >
-            <v-list-tile-action>
-              <v-icon>{{ submenu.icon }}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>{{ submenu.title }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list-group>
+            <VListTileAction>
+              <VIcon>{{ submenu.icon }}</VIcon>
+            </VListTileAction>
+            <VListTileContent>
+              <VListTileTitle>{{ submenu.title }}</VListTileTitle>
+            </VListTileContent>
+          </VListTile>
+        </VListGroup>
       </template>
-    </v-list>
-  </v-navigation-drawer>
+    </VList>
+  </VNavigationDrawer>
 </template>
 
 <script>
@@ -60,12 +60,12 @@ export default {
         {
           title: 'Home',
           icon: 'dashboard',
-          path: '/app',
+          path: '/app'
         },
         {
           title: 'Agenda',
           icon: 'library_books',
-          path: '/app/agendas',
+          path: '/app/agendas'
         },
         {
           title: 'Settings',
@@ -75,18 +75,18 @@ export default {
             {
               title: 'Users',
               icon: 'account_box',
-              path: '/app/users',
-            },
-          ],
-        },
-      ],
+              path: '/app/users'
+            }
+          ]
+        }
+      ]
     };
   },
   computed: {
     ...mapState('core', ['appName']),
     cssProps() {
       return {
-        '--secondary-color': this.$vuetify.theme.secondary,
+        '--secondary-color': this.$vuetify.theme.secondary
       };
     },
     drawerStatus: {
@@ -95,8 +95,8 @@ export default {
       },
       set(newValue) {
         this.$store.state.layout.navDrawerToggle = newValue;
-      },
-    },
+      }
+    }
   },
   methods: {
     menuGroupShouldBeExpanded(menu) {
@@ -105,8 +105,8 @@ export default {
       }
 
       return false;
-    },
-  },
+    }
+  }
 };
 </script>
 <style>

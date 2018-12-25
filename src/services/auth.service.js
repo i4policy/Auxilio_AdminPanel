@@ -11,13 +11,16 @@ const AuthService = {
     err.statusCode = 400;
 
     return UserAccountAPI.login(email, password)
-      .then((res) => {
+      .then(res => {
         if (res && res.token) {
           localStorage.setItem(ACCESS_TOKEN_KEY, res.token);
-          localStorage.setItem(PROFILE_KEY, JSON.stringify({
-            fullName: res.fullName,
-            role: res.role,
-          }));
+          localStorage.setItem(
+            PROFILE_KEY,
+            JSON.stringify({
+              fullName: res.fullName,
+              role: res.role
+            })
+          );
           return Promise.resolve(true);
         }
         return Promise.reject(err);

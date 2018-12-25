@@ -27,55 +27,55 @@ const router = new Router({
         {
           path: '',
           name: 'home',
-          component: Dashboard,
+          component: Dashboard
         },
         {
           path: 'users',
           name: 'user-list',
-          component: UserList,
+          component: UserList
         },
         {
           path: 'user-create',
           name: 'user-create',
-          component: UserCreate,
+          component: UserCreate
         },
         {
           path: 'user-update/:id',
           name: 'user-update',
-          component: UserUpdate,
+          component: UserUpdate
         },
         {
           path: 'agendas',
           name: 'agenda-list',
-          component: AgendaList,
+          component: AgendaList
         },
         {
           path: 'agenda-create',
           name: 'agenda-create',
-          component: AgendaCreate,
+          component: AgendaCreate
         },
         {
           path: 'agenda-update/:id',
           name: 'agenda-update',
-          component: AgendaUpdate,
-        },
-      ],
+          component: AgendaUpdate
+        }
+      ]
     },
     {
       path: '/login',
       name: 'login',
-      component: Login,
+      component: Login
     },
     {
       path: '*',
       name: '404',
-      redirect: '/404',
+      redirect: '/404'
     },
     {
       path: '/404',
-      component: NotFoundPage,
-    },
-  ],
+      component: NotFoundPage
+    }
+  ]
 });
 
 router.beforeEach((to, from, next) => {

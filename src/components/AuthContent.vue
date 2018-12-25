@@ -1,16 +1,13 @@
 <template>
-    <div>
-    <navbar/>
-    <sidebar/>
-    <v-content>
-      <v-container fluid>
-        <router-view/>
-      </v-container>
-    </v-content>
+  <div>
+    <Navbar />
+    <Sidebar />
+    <VContent>
+      <VContainer fluid> <RouterView /> </VContainer>
+    </VContent>
   </div>
 </template>
 <script>
-
 import Navbar from '@/components/Navbar.vue';
 import Sidebar from '@/components/Sidebar.vue';
 
@@ -18,7 +15,7 @@ export default {
   name: 'AppContent',
   components: {
     Navbar,
-    Sidebar,
-  },
+    Sidebar
+  }
 };
 </script>

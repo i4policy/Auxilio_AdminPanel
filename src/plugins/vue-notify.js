@@ -1,6 +1,11 @@
 import Vue from 'vue';
-import VueNotifyjs from 'vue-notifyjs';
+import Notify from 'vue-notifyjs';
 
 import 'vue-notifyjs/themes/default.css';
 
-Vue.use(VueNotifyjs);
+// Vue.use(Notify);
+
+Vue.use(Notify, {
+  horizontalAlign: 'center',
+  verticalAlign: 'top'
+});

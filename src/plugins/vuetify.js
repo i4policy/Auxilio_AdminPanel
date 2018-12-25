@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
 import 'vuetify/src/stylus/app.styl';
 
-
 Vue.use(Vuetify, {
   iconfont: 'md',
   theme: {
@@ -18,6 +17,6 @@ Vue.use(Vuetify, {
     navbarColor: '#593c79',
     sidebarColor: '#f5f5f5',
     green: '#44bb4b',
-    purple: '#6d60b6',
-  },
+    purple: '#6d60b6'
+  }
 });

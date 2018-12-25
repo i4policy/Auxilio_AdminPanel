@@ -1,28 +1,14 @@
 <template>
-  <v-layout
-    v-if="messages"
-    row
-    wrap >
-    <v-flex
-      xs12
-    >
-      <v-alert
-        :value="true"
-        type="error">
-
-        <p v-if="typeof messages ==='string'">
-          {{ messages }}
-        </p>
-        <ul v-if="typeof messages ==='object'">
-          <li
-            v-for="error in getMessages"
-            :key="error">
-            {{ error }}
-          </li>
+  <VLayout v-if="messages" row wrap>
+    <VFlex xs12>
+      <VAlert :value="true" type="error">
+        <p v-if="typeof messages === 'string'">{{ messages }}</p>
+        <ul v-if="typeof messages === 'object'">
+          <li v-for="error in getMessages" :key="error">{{ error }}</li>
         </ul>
-      </v-alert>
-    </v-flex>
-  </v-layout>
+      </VAlert>
+    </VFlex>
+  </VLayout>
 </template>
 
 <script>
@@ -46,7 +32,7 @@ export default {
     getMessages() {
       let allErrors = [];
       const { messages } = this;
-      Object.keys(messages).forEach((key) => {
+      Object.keys(messages).forEach(key => {
         const e = messages[key].map(item => `${key}: ${item.toString()}`);
         allErrors = allErrors.concat(e);
       });

@@ -1,40 +1,32 @@
 <template>
   <div>
-    <v-container fluid class="pb-0">
-      <v-layout>
-        <v-flex xs12>
-          <div class="headline font-weight-thin">users</div>
-        </v-flex>
-      </v-layout>
-    </v-container>
-    <v-container class="pt-2" fluid grid-list-lg>
-      <v-layout wrap>
-        <v-flex xs12>
-          <v-card class="pt-2">
-            <v-toolbar flat color="white">
-              <v-btn
+    <VContainer fluid class="pb-0">
+      <VLayout>
+        <VFlex xs12> <div class="headline font-weight-thin">users</div> </VFlex>
+      </VLayout>
+    </VContainer>
+    <VContainer class="pt-2" fluid grid-list-lg>
+      <VLayout wrap>
+        <VFlex xs12>
+          <VCard class="pt-2">
+            <VToolbar flat color="white">
+              <VBtn
                 color="primary"
                 class="pa-0 pl-2 pr-3"
                 @click="$router.push({ name: 'user-create' })"
               >
-                <v-icon class="mr-1">add_circle_outline</v-icon>
+                <VIcon class="mr-1">add_circle_outline</VIcon>
                 New user
-              </v-btn>
+              </VBtn>
 
-              <v-spacer/>
+              <VSpacer />
 
-              <v-flex xs12 md4>
-                <v-text-field
-                  v-model="search"
-                  label="search"
-                  single-line
-                  append-icon="search"
-                  solo
-                />
-              </v-flex>
-            </v-toolbar>
+              <VFlex xs12 md4>
+                <VTextField v-model="search" label="search" single-line append-icon="search" solo />
+              </VFlex>
+            </VToolbar>
 
-            <v-data-table
+            <VDataTable
               :headers="headers"
               :items="items"
               :loading="loading"
@@ -44,46 +36,44 @@
               @update:pagination="getList"
             >
               <template slot="headerCell" slot-scope="props">
-                <span class="table-header-text caption font-weight-bold">{{ props.header.textKey }}</span>
+                <span class="table-header-text caption font-weight-bold">{{
+                  props.header.textKey
+                }}</span>
               </template>
               <template slot="items" slot-scope="props">
-                <td>{{ props.index+1 }}</td>
+                <td>{{ props.index + 1 }}</td>
                 <td>{{ props.item.fullName }}</td>
                 <td>{{ props.item.phoneNumber }}</td>
                 <td>{{ props.item.email }}</td>
                 <td>{{ props.item.role.name }}</td>
                 <td>
-                  <v-menu offset-x left bottom>
-                    <v-btn slot="activator" icon>
-                      <v-icon>more_vert</v-icon>
-                    </v-btn>
+                  <VMenu offset-x left bottom>
+                    <VBtn slot="activator" icon> <VIcon>more_vert</VIcon> </VBtn>
 
-                    <v-list dense>
-                      <v-list-tile
+                    <VList dense>
+                      <VListTile
                         ripple
-                        @click="$router.push({name:'user-update',params:{id:props.item.id}})"
+                        @click="
+                          $router.push({ name: 'user-update', params: { id: props.item.id } })
+                        "
                       >
-                        <v-list-tile-action>
-                          <v-icon>edit</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-title>Edit</v-list-tile-title>
-                      </v-list-tile>
+                        <VListTileAction> <VIcon>edit</VIcon> </VListTileAction>
+                        <VListTileTitle>Edit</VListTileTitle>
+                      </VListTile>
 
-                      <v-list-tile ripple @click="deleteItem(props.item.id)">
-                        <v-list-tile-action>
-                          <v-icon>delete</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-title>Delete</v-list-tile-title>
-                      </v-list-tile>
-                    </v-list>
-                  </v-menu>
+                      <VListTile ripple @click="deleteItem(props.item.id)">
+                        <VListTileAction> <VIcon>delete</VIcon> </VListTileAction>
+                        <VListTileTitle>Delete</VListTileTitle>
+                      </VListTile>
+                    </VList>
+                  </VMenu>
                 </td>
               </template>
-            </v-data-table>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-container>
+            </VDataTable>
+          </VCard>
+        </VFlex>
+      </VLayout>
+    </VContainer>
   </div>
 </template>
 
@@ -125,16 +115,18 @@ export default {
         filter: {
           limit: this.pagination.rowsPerPage,
           skip: (this.pagination.page - 1) * this.rowsPerPage,
-          include: [{
-            relation: 'role',
-            scope: {
-              fields: ['name', 'id']
+          include: [
+            {
+              relation: 'role',
+              scope: {
+                fields: ['name', 'id']
+              }
             }
-          }]
+          ]
         }
       };
       this.loading = true;
-      UserAccountAPI.all(f).then((res) => {
+      UserAccountAPI.all(f).then(res => {
         this.loading = false;
         this.items = res.rows;
         this.totalItems = res.count;
