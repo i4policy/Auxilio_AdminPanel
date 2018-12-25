@@ -58,26 +58,19 @@ export default {
       userProfile: {},
       menus: [
         {
-          title: 'Home',
+          title: 'Dashboard',
           icon: 'dashboard',
           path: '/app'
         },
         {
-          title: 'Agenda',
-          icon: 'library_books',
-          path: '/app/agendas'
+          title: 'Post Categories',
+          icon: 'settings',
+          path: '/app'
         },
         {
-          title: 'Settings',
-          icon: 'settings',
-          roles: ['ADMIN'],
-          children: [
-            {
-              title: 'Users',
-              icon: 'account_box',
-              path: '/app/users'
-            }
-          ]
+          title: 'Users',
+          icon: 'account_box',
+          path: '/app/users'
         }
       ]
     };

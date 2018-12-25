@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-// import Home from './views/Home.vue';
+
 import Dashboard from '@/components/Dashboard.vue';
 import Login from '@/components/Login.vue';
 import AuthContent from '@/components/AuthContent.vue';
@@ -9,9 +9,6 @@ import UserList from '@/components/users/UserList.vue';
 import UserCreate from '@/components/users/UserCreate.vue';
 import UserUpdate from '@/components/users/UserUpdate.vue';
 
-import AgendaList from '@/components/agendas/AgendaList.vue';
-import AgendaCreate from '@/components/agendas/AgendaCreate.vue';
-import AgendaUpdate from '@/components/agendas/AgendaUpdate.vue';
 import AuthService from './services/auth.service';
 
 Vue.use(Router);
@@ -43,21 +40,6 @@ const router = new Router({
           path: 'user-update/:id',
           name: 'user-update',
           component: UserUpdate
-        },
-        {
-          path: 'agendas',
-          name: 'agenda-list',
-          component: AgendaList
-        },
-        {
-          path: 'agenda-create',
-          name: 'agenda-create',
-          component: AgendaCreate
-        },
-        {
-          path: 'agenda-update/:id',
-          name: 'agenda-update',
-          component: AgendaUpdate
         }
       ]
     },
