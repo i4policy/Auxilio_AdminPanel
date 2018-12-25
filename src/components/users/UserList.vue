@@ -2,7 +2,7 @@
   <div>
     <VContainer fluid class="pb-0">
       <VLayout>
-        <VFlex xs12> <div class="headline font-weight-thin">users</div> </VFlex>
+        <VFlex xs12> <div class="headline">Users</div> </VFlex>
       </VLayout>
     </VContainer>
     <VContainer class="pt-2" fluid grid-list-lg>
@@ -15,8 +15,7 @@
                 class="pa-0 pl-2 pr-3"
                 @click="$router.push({ name: 'user-create' })"
               >
-                <VIcon class="mr-1">add_circle_outline</VIcon>
-                New user
+                <VIcon class="mr-1">add_circle_outline</VIcon>New user
               </VBtn>
 
               <VSpacer />
@@ -33,12 +32,12 @@
               :total-items="totalItems"
               disable-initial-sort
               :pagination.sync="pagination"
-              @update:pagination="getList"
+              @update:pagination="loadData"
             >
               <template slot="headerCell" slot-scope="props">
-                <span class="table-header-text caption font-weight-bold">{{
-                  props.header.textKey
-                }}</span>
+                <span class="table-header-text caption font-weight-bold">
+                  {{ props.header.textKey }}
+                </span>
               </template>
               <template slot="items" slot-scope="props">
                 <td>{{ props.index + 1 }}</td>
@@ -78,7 +77,7 @@
 </template>
 
 <script>
-import { UserAccountAPI } from '@/api/api.index';
+import { UserAccountAPI } from '@/api';
 
 export default {
   name: 'UserList',
@@ -103,14 +102,8 @@ export default {
       ]
     };
   },
-  created() {
-    // ;
-  },
   methods: {
-    test(value) {
-      console.log('aa', value);
-    },
-    getList() {
+    loadData() {
       const f = {
         filter: {
           limit: this.pagination.rowsPerPage,
@@ -135,20 +128,13 @@ export default {
     },
     async deleteItem(id) {
       if (id) {
-        // @TODO: fix confirm modal
-        // const confirmed = await this.$confirm('Are you sure?', {
-        //   buttonTrueText: 'yes',
-        //   buttonFalseText: 'no'
-        // });
-        // if (confirmed) {
         await UserAccountAPI.remove(id);
         this.$notify({
           type: 'success',
           title: 'Success',
           message: 'user deleted successfully'
         });
-        this.getList();
-        // }
+        this.loadData();
       }
     }
   }

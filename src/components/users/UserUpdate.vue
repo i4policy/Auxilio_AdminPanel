@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import { UserAccountAPI, UserRoleAPI } from '@/api/api.index';
+import { UserAccountAPI } from '@/api';
 
 export default {
   name: 'UserCreate',
@@ -104,11 +104,9 @@ export default {
     return {
       resourceName: 'User',
       errorMessage: null,
-      item: {},
-      roleList: []
+      item: {}
     };
   },
-  computed: {},
 
   created() {
     const { id } = this.$route.params;
@@ -136,11 +134,7 @@ export default {
     },
     async getData(id) {
       this.item = await UserAccountAPI.get(id);
-    },
-    async getRoles() {
-      this.roleList = (await UserRoleAPI.all()).rows;
     }
-  },
-  watch: {}
+  }
 };
 </script>

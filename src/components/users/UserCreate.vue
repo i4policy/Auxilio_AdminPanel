@@ -21,9 +21,9 @@
               <VTextField
                 v-validate="'required'"
                 v-model="item.fullName"
-                :error-messages="errors.collect('Full Name')"
+                :error-messages="errors.collect('full name')"
                 label="Full Name"
-                name="Full Name"
+                name="full name"
                 outline
                 background-color="white elevation-1"
               />
@@ -38,27 +38,12 @@
                 background-color="white elevation-1"
               />
             </VFlex>
-            <!-- <v-flex
-              xs12 >
-              <v-select
-                v-validate="'required'"
-                :items="roleList"
-                item-text="name"
-                item-value="id"
-                outline
-                v-model="item.role"
-                label="Role"
-                :error-messages="errors.collect('Role')"
-                name="Role"
-                background-color="white elevation-1"
-              />
-            </v-flex> -->
             <VFlex xs12>
               <VTextField
                 v-model="item.email"
-                :error-messages="errors.collect('Email Address')"
+                :error-messages="errors.collect('email')"
                 label="Email Address"
-                name="Email Address"
+                name="email"
                 v-validate="'required|email'"
                 type="email"
                 outline
@@ -68,9 +53,9 @@
             <VFlex xs12>
               <VTextField
                 v-model="item.password"
-                :error-messages="errors.collect('Password')"
+                :error-messages="errors.collect('password')"
                 label="Password"
-                name="Password"
+                name="password"
                 type="password"
                 v-validate="'required'"
                 outline
@@ -96,7 +81,7 @@
 </template>
 
 <script>
-import { UserAccountAPI, UserRoleAPI } from '@/api/api.index';
+import { UserAccountAPI } from '@/api';
 
 export default {
   name: 'UserCreate',
@@ -104,14 +89,8 @@ export default {
     return {
       resourceName: 'User',
       errorMessage: null,
-      item: {},
-      roleList: []
+      item: {}
     };
-  },
-  computed: {},
-
-  created() {
-    // this.getRoles();
   },
 
   methods: {
@@ -132,11 +111,7 @@ export default {
           this.errorMessage = messages;
         }
       }
-    },
-    async getRoles() {
-      this.roleList = (await UserRoleAPI.all()).rows;
     }
-  },
-  watch: {}
+  }
 };
 </script>

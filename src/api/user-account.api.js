@@ -1,4 +1,4 @@
-import { API_ROOT } from './api.index';
+import { API_ROOT } from './index';
 import Request from './request';
 
 const PATH = '/UserAccounts';

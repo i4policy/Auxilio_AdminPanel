@@ -3,7 +3,7 @@ import Router from 'vue-router';
 
 import Dashboard from '@/components/Dashboard.vue';
 import Login from '@/components/Login.vue';
-import AuthContent from '@/components/AuthContent.vue';
+import AuthLayout from '@/components/AuthLayout.vue';
 import NotFoundPage from '@/components/404.vue';
 import UserList from '@/components/users/UserList.vue';
 import UserCreate from '@/components/users/UserCreate.vue';
@@ -19,7 +19,7 @@ const router = new Router({
   routes: [
     {
       path: '/app',
-      component: AuthContent,
+      component: AuthLayout,
       children: [
         {
           path: '',

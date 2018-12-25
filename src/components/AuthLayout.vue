@@ -3,7 +3,7 @@
     <Navbar />
     <Sidebar />
     <VContent>
-      <VContainer fluid> <RouterView /> </VContainer>
+      <VContainer fluid><RouterView /> </VContainer>
     </VContent>
   </div>
 </template>
