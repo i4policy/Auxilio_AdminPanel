@@ -12,17 +12,11 @@ const UserAccountAPI = {
       params: filter
     });
   },
-  create(data) {
-    return Request.post(`${API_ROOT}${PATH}`, data);
-  },
-  update(data) {
-    return Request.patch(`${API_ROOT}${PATH}/${data.id}`, data);
-  },
   remove(id) {
     return Request.delete(`${API_ROOT}${PATH}/${id}`);
   },
   logout() {
-    return Request.post(`${API_ROOT}${PATH}/logout`);
+    return Request.post(`${API_ROOT}${PATH}/logout-user`);
   },
   login(email, password) {
     return Request.post(`${API_ROOT}${PATH}/login`, {
@@ -32,6 +26,9 @@ const UserAccountAPI = {
   },
   registerMember(data) {
     return Request.post(`${API_ROOT}${PATH}/register-member`, data);
+  },
+  updateMember(data) {
+    return Request.put(`${API_ROOT}${PATH}/update-member`, data);
   }
 };
 

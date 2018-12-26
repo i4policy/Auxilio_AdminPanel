@@ -25,18 +25,16 @@
                     </VToolbar>
                     <VCardText>
                       <VForm @submit.prevent="login">
-                        <VAlert v-if="authError" :value="true" type="error">
-                          {{ authError }}
-                        </VAlert>
+                        <VAlert v-if="authError" :value="true" type="error">{{ authError }}</VAlert>
                         <VTextField
-                          v-validate="'required'"
-                          v-model="user.username"
-                          :error-messages="errors.collect('username')"
+                          v-validate="'required|email'"
+                          v-model="user.email"
+                          :error-messages="errors.collect('email')"
                           prepend-icon="person"
-                          name="username"
-                          label="User"
+                          name="email"
+                          label="Email"
                           type="text"
-                          autocomplete="username"
+                          autocomplete="email"
                         />
                         <VTextField
                           v-validate="'required'"
@@ -75,23 +73,28 @@ export default {
     };
   },
   methods: {
-    login() {
-      const self = this;
-      this.$validator.validateAll().then(valid => {
-        if (valid) {
-          self.authError = null;
-          AuthService.login(this.user.username, this.user.password)
-            .then(() => {
-              this.$validator.reset();
-              this.$router.push({ name: 'home' });
-            })
-            .catch(err => {
-              if (err.statusCode === 400) {
-                self.authError = 'Username or password is incorrect';
-              }
+    async login() {
+      const valid = await this.$validator.validateAll();
+      if (valid) {
+        try {
+          const success = await AuthService.login(this.user.email, this.user.password);
+          if (success) {
+            this.$validator.reset();
+            this.$router.push({ name: 'home' });
+          } else {
+            this.$notify({
+              title: 'Internal Error',
+              type: 'danger',
+              message: 'Something went wrong on our side.'
             });
+          }
+        } catch (error) {
+          console.log('error:::', error);
+          if (error && error.statusCode === 401) {
+            this.authError = 'Email or password is incorrect';
+          }
         }
-      });
+      }
     }
   }
 };

@@ -5,37 +5,24 @@ export const ACCESS_TOKEN_KEY = 'token';
 export const PROFILE_KEY = 'profile';
 
 const AuthService = {
-  login(email, password) {
-    const err = new Error();
-    err.message = 'Invalid login parameters';
-    err.statusCode = 400;
-
-    return UserAccountAPI.login(email, password)
-      .then(res => {
-        if (res && res.token) {
-          localStorage.setItem(ACCESS_TOKEN_KEY, res.token);
-          localStorage.setItem(
-            PROFILE_KEY,
-            JSON.stringify({
-              fullName: res.fullName,
-              role: res.role
-            })
-          );
-          return Promise.resolve(true);
-        }
-        return Promise.reject(err);
-      })
-      .catch(() => Promise.reject(err));
+  async login(email, password) {
+    const res = await UserAccountAPI.login(email, password);
+    if (res && res.token) {
+      localStorage.setItem(ACCESS_TOKEN_KEY, res.token);
+      const profile = JSON.stringify({
+        profilePicture: res.profilePicture,
+        title: res.title,
+        fullName: res.fullName,
+        email: res.email,
+        role: res.role
+      });
+      localStorage.setItem(PROFILE_KEY, profile);
+      return true;
+    }
+    return false;
   },
-  logout() {
-    UserAccountAPI.logout().then(() => {
-      localStorage.removeItem(ACCESS_TOKEN_KEY);
-      localStorage.removeItem(PROFILE_KEY);
-      Router.push({ name: 'login' });
-    });
-  },
-
-  logoutClientOnly() {
+  async logout() {
+    await UserAccountAPI.logout();
     localStorage.removeItem(ACCESS_TOKEN_KEY);
     localStorage.removeItem(PROFILE_KEY);
     Router.push({ name: 'login' });
