@@ -8,6 +8,8 @@ module.exports = {
   rules: {
     'comma-dangle': 'off',
     'arrow-parens': 'off',
+    'key-spacing': 'off',
+    'object-curly-newline': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
   },

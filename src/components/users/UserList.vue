@@ -17,11 +17,10 @@
               >
                 <VIcon class="mr-1">add_circle_outline</VIcon>New user
               </VBtn>
-
               <VSpacer />
 
               <VFlex xs12 md4>
-                <VTextField v-model="search" label="search" single-line append-icon="search" solo />
+                <VTextField v-model="search" :label="'search'" single-line append-icon="search" />
               </VFlex>
             </VToolbar>
 
@@ -34,17 +33,17 @@
               :pagination.sync="pagination"
               @update:pagination="loadData"
             >
-              <template slot="headerCell" slot-scope="props">
+              <template slot="headerCell" slot-scope="{ header }">
                 <span class="table-header-text caption font-weight-bold">
-                  {{ props.header.textKey }}
+                  {{ header.textKey }}
                 </span>
               </template>
-              <template slot="items" slot-scope="props">
-                <td>{{ props.index + 1 }}</td>
-                <td>{{ props.item.fullName }}</td>
-                <td>{{ props.item.phoneNumber }}</td>
-                <td>{{ props.item.email }}</td>
-                <td>{{ props.item.role.name }}</td>
+              <template slot="items" slot-scope="{ index, item }">
+                <td>{{ index + 1 }}</td>
+                <td>{{ item.fullName }}</td>
+                <td>{{ item.phoneNumber }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.role && item.role.name }}</td>
                 <td>
                   <VMenu offset-x left bottom>
                     <VBtn slot="activator" icon> <VIcon>more_vert</VIcon> </VBtn>
@@ -52,15 +51,13 @@
                     <VList dense>
                       <VListTile
                         ripple
-                        @click="
-                          $router.push({ name: 'user-update', params: { id: props.item.id } })
-                        "
+                        @click="$router.push({ name: 'user-update', params: { id: item.id } })"
                       >
                         <VListTileAction> <VIcon>edit</VIcon> </VListTileAction>
                         <VListTileTitle>Edit</VListTileTitle>
                       </VListTile>
 
-                      <VListTile ripple @click="deleteItem(props.item.id)">
+                      <VListTile ripple @click="deleteItem(item.id)">
                         <VListTileAction> <VIcon>delete</VIcon> </VListTileAction>
                         <VListTileTitle>Delete</VListTileTitle>
                       </VListTile>
@@ -78,20 +75,26 @@
 
 <script>
 import { UserAccountAPI } from '@/api';
+import { buildFilter, buildSearchFilter } from '@/util';
+
+const debounce = require('lodash.debounce');
+
+const ITEMS_PER_PAGE = 25;
 
 export default {
   name: 'UserList',
   data() {
     return {
       search: '',
+      searchStarted: false,
       items: [],
       loading: false,
-      totalItems: 100,
+      totalItems: 0,
       pagination: {
-        page: 1,
-        rowsPerPage: 25
+        skip: 1,
+        rowsPerPage: ITEMS_PER_PAGE
       },
-      searchField: 'name',
+      searchField: 'fullName',
       headers: [
         { textKey: '#', value: 'id', sortable: false },
         { textKey: 'Full Name', value: 'fullName' },
@@ -103,28 +106,26 @@ export default {
     };
   },
   methods: {
-    loadData() {
-      const f = {
+    doSearch: debounce(async function s() {
+      if (this.searchField && this.search) {
+        this.loadData(buildSearchFilter(this.searchField, this.search));
+      } else {
+        this.loadData();
+      }
+    }, 500),
+    async loadData(filter) {
+      this.loading = true;
+      const filters = {
         filter: {
-          limit: this.pagination.rowsPerPage,
-          skip: (this.pagination.page - 1) * this.rowsPerPage,
-          include: [
-            {
-              relation: 'role',
-              scope: {
-                fields: ['name', 'id']
-              }
-            }
-          ]
+          ...filter,
+          include: ['role'],
+          ...buildFilter(this.pagination)
         }
       };
-      this.loading = true;
-      UserAccountAPI.all(f).then(res => {
-        this.loading = false;
-        this.items = res.rows;
-        this.totalItems = res.count;
-        console.log(this.totalItems);
-      });
+      const { rows, count } = await UserAccountAPI.all(filters);
+      this.items = rows;
+      this.totalItems = count;
+      this.loading = false;
     },
     async deleteItem(id) {
       if (id) {
@@ -135,6 +136,19 @@ export default {
           message: 'user deleted successfully'
         });
         this.loadData();
+      }
+    }
+  },
+  watch: {
+    pagination: {
+      handler() {
+        this.loadData();
+      },
+      deep: true
+    },
+    search: {
+      handler() {
+        this.doSearch();
       }
     }
   }
