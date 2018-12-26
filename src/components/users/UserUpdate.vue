@@ -1,6 +1,6 @@
 <template>
   <VLayout justify-center row wrap>
-    <VFlex xs6>
+    <VFlex xs10>
       <VForm @submit.prevent="save">
         <VToolbar dense class="grey lighten-4 elevation-2 mb-1">
           <VTooltip bottom>
@@ -10,83 +10,90 @@
             <span>cancel</span>
           </VTooltip>
           <VSpacer />
-          <span class="headline"> Edit user</span>
+          <span class="headline">Update user account</span>
           <VSpacer />
         </VToolbar>
 
-        <VCard tile class=" pa-3">
+        <VCard tile class="pa-3">
           <FormErrorMessages :messages="errorMessage" />
-          <VLayout column>
-            <VFlex xs12>
-              <VTextField
-                v-validate="'required'"
-                v-model="item.fullName"
-                :error-messages="errors.collect('Full Name')"
-                label="Full Name"
-                name="Full Name"
-                outline
-                background-color="white elevation-1"
+          <VLayout row>
+            <VFlex xs4>
+              <ProfilePictureUpload
+                :preview="item.profilePicture"
+                @onUploadComplete="item.profilePicture = $event"
               />
             </VFlex>
-            <VFlex xs12>
-              <VTextField
-                v-model="item.phoneNumber"
-                :error-messages="errors.collect('Phone Number')"
-                label="Phone Number"
-                name="Phone Number"
-                outline
-                background-color="white elevation-1"
-              />
-            </VFlex>
-            <!-- <v-flex
-              xs12 >
-              <v-select
-                v-validate="'required'"
-                :items="roleList"
-                item-text="name"
-                item-value="id"
-                outline
-                v-model="item.role"
-                label="Role"
-                :error-messages="errors.collect('Role')"
-                name="Role"
-                background-color="white elevation-1"
-              />
-            </v-flex> -->
-            <VFlex xs12>
-              <VTextField
-                v-model="item.email"
-                :error-messages="errors.collect('Email Address')"
-                label="Email Address"
-                name="Email Address"
-                v-validate="'required|email'"
-                type="email"
-                outline
-                background-color="white elevation-1"
-              />
-            </VFlex>
-            <VFlex xs12>
-              <VTextField
-                v-model="item.password"
-                :error-messages="errors.collect('Password')"
-                label="Password"
-                name="Password"
-                type="password"
-                v-validate="'required'"
-                outline
-                background-color="white elevation-1"
-                ref="password"
-              />
+            <VFlex xs8>
+              <VLayout column>
+                <VFlex xs12>
+                  <VTextField
+                    v-validate="'required'"
+                    v-model="item.title"
+                    :error-messages="errors.collect('title')"
+                    label="Title *"
+                    name="title"
+                    outline
+                    background-color="white elevation-1"
+                  />
+                </VFlex>
+                <VFlex xs12>
+                  <VTextField
+                    v-validate="'required'"
+                    v-model="item.fullName"
+                    :error-messages="errors.collect('full name')"
+                    label="Full Name *"
+                    name="full name"
+                    outline
+                    background-color="white elevation-1"
+                  />
+                </VFlex>
+
+                <VFlex xs12>
+                  <VTextField
+                    v-model="item.email"
+                    :error-messages="errors.collect('email')"
+                    label="Email *"
+                    name="email"
+                    v-validate="'required|email'"
+                    type="email"
+                    outline
+                    background-color="white elevation-1"
+                  />
+                </VFlex>
+                <VFlex xs12>
+                  <VTextField
+                    v-model="item.password"
+                    :error-messages="errors.collect('password')"
+                    label="Password *"
+                    name="password"
+                    type="password"
+                    v-validate="'required'"
+                    outline
+                    background-color="white elevation-1"
+                    ref="password"
+                  />
+                </VFlex>
+                <VFlex xs12>
+                  <VTextField
+                    v-model="item.phoneNumber"
+                    :error-messages="errors.collect('Phone Number')"
+                    label="Phone Number"
+                    name="Phone Number"
+                    outline
+                    background-color="white elevation-1"
+                  />
+                </VFlex>
+              </VLayout>
             </VFlex>
           </VLayout>
         </VCard>
         <VLayout>
           <VToolbar>
             <VSpacer />
-            <VBtn color="defualt" @click="$router.push({ name: 'user-list' })" type="button">
-              cancel
-            </VBtn>
-            <VBtn color="primary" type="submit"> save </VBtn>
+            <VBtn color="defualt" @click="$router.push({ name: 'user-list' })" type="button"
+              >cancel</VBtn
+            >
+            <VBtn color="primary" type="submit">save</VBtn>
             <VSpacer />
           </VToolbar>
         </VLayout>
@@ -97,9 +104,13 @@
 
 <script>
 import { UserAccountAPI } from '@/api';
+import ProfilePictureUpload from './ProfilePictureUpload.vue';
 
 export default {
-  name: 'UserCreate',
+  name: 'UserUpdate',
+  components: {
+    ProfilePictureUpload
+  },
   data() {
     return {
       resourceName: 'User',
@@ -108,9 +119,14 @@ export default {
     };
   },
 
-  created() {
+  async created() {
     const { id } = this.$route.params;
-    this.getData(id);
+    const user = await UserAccountAPI.get(id);
+    delete user.createdAt;
+    delete user.updatedAt;
+    delete user._isDeleted; // eslint-disable-line
+    delete user.roleId;
+    this.item = user;
   },
 
   methods: {
@@ -119,7 +135,7 @@ export default {
       if (valid) {
         this.errorMessage = null;
         try {
-          await UserAccountAPI.registerMember(this.item);
+          await UserAccountAPI.updateMember(this.item);
           this.$notify({
             type: 'success',
             title: 'success',
@@ -131,9 +147,6 @@ export default {
           this.errorMessage = messages;
         }
       }
-    },
-    async getData(id) {
-      this.item = await UserAccountAPI.get(id);
     }
   }
 };

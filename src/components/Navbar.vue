@@ -14,7 +14,7 @@
         offset-x
       >
         <VBtn slot="activator" icon> <VIcon large dark>account_circle</VIcon> </VBtn>
-        <div slot="activator" class="subheader">{{ userProfile.name }}</div>
+        <div slot="activator" class="subheader">{{ userProfile.fullName }}</div>
         <VBtn slot="activator" icon> <VIcon>more_vert</VIcon> </VBtn>
         <VCard>
           <VList>
@@ -39,10 +39,7 @@ export default {
     return {
       profilePopupVisible: false,
       appName: 'Auxilio',
-      userProfile: {
-        name: 'Mike',
-        role: 'Admin'
-      }
+      userProfile: AuthService.getProfile()
     };
   },
   methods: {

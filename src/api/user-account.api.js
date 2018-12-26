@@ -28,7 +28,7 @@ const UserAccountAPI = {
     return Request.post(`${API_ROOT}${PATH}/register-member`, data);
   },
   updateMember(data) {
-    return Request.put(`${API_ROOT}${PATH}/update-member`, data);
+    return Request.patch(`${API_ROOT}${PATH}/update-member`, { body: data });
   }
 };
 
