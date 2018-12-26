@@ -72,7 +72,6 @@ export default {
         return;
       }
       const data = new FormData();
-      console.log('data::', data);
       data.append('file', e.target.files[0]);
       this.isUploading = true;
 

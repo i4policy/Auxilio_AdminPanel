@@ -8,6 +8,9 @@ import NotFoundPage from '@/components/404.vue';
 import UserList from '@/components/users/UserList.vue';
 import UserCreate from '@/components/users/UserCreate.vue';
 import UserUpdate from '@/components/users/UserUpdate.vue';
+import PostCategoryList from '@/components/post-categories/PostCategoryList.vue';
+import PostCategoryCreate from '@/components/post-categories/PostCategoryCreate.vue';
+import PostCategoryUpdate from '@/components/post-categories/PostCategoryUpdate.vue';
 
 import AuthService from './services/auth.service';
 
@@ -40,6 +43,21 @@ const router = new Router({
           path: 'user-update/:id',
           name: 'user-update',
           component: UserUpdate
+        },
+        {
+          path: 'categories',
+          name: 'category-list',
+          component: PostCategoryList
+        },
+        {
+          path: 'category-create',
+          name: 'category-create',
+          component: PostCategoryCreate
+        },
+        {
+          path: 'category-update/:id',
+          name: 'category-update',
+          component: PostCategoryUpdate
         }
       ]
     },

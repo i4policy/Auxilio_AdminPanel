@@ -65,7 +65,7 @@ export default {
         {
           title: 'Post Categories',
           icon: 'settings',
-          path: '/app'
+          path: '/app/categories'
         },
         {
           title: 'Users',
