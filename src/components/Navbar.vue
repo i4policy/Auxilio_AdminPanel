@@ -14,7 +14,9 @@
         offset-x
       >
         <VBtn slot="activator" icon> <VIcon large dark>account_circle</VIcon> </VBtn>
-        <div slot="activator" class="subheader">{{ userProfile.fullName }}</div>
+        <div slot="activator" class="subheader">
+          {{ `${userProfile.givenName} ${userProfile.familyName}` }}
+        </div>
         <VBtn slot="activator" icon> <VIcon>more_vert</VIcon> </VBtn>
         <VCard>
           <VList>

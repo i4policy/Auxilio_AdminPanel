@@ -22,64 +22,106 @@
             </VFlex>
             <VFlex xs8>
               <VLayout column>
-                <VFlex xs12>
-                  <VTextField
-                    v-validate="'required'"
-                    v-model="item.title"
-                    :error-messages="errors.collect('title')"
-                    label="Title *"
-                    name="title"
-                    outline
-                    background-color="white elevation-1"
-                  />
-                </VFlex>
-                <VFlex xs12>
-                  <VTextField
-                    v-validate="'required'"
-                    v-model="item.fullName"
-                    :error-messages="errors.collect('full name')"
-                    label="Full Name *"
-                    name="full name"
-                    outline
-                    background-color="white elevation-1"
-                  />
-                </VFlex>
+                <VLayout row>
+                  <VFlex xs5>
+                    <VSelect
+                      :error-messages="errors.collect('title')"
+                      v-validate="'required'"
+                      name="title"
+                      :items="titles"
+                      v-model="item.title"
+                      label="Title"
+                      solo
+                    ></VSelect>
+                  </VFlex>
+                  <VFlex xs6 offset-xs1>
+                    <VTextField
+                      v-validate="'required'"
+                      v-model="item.givenName"
+                      :error-messages="errors.collect('given name')"
+                      label="Given Name *"
+                      name="given name"
+                      outline
+                      background-color="white elevation-1"
+                    />
+                  </VFlex>
+                </VLayout>
 
-                <VFlex xs12>
-                  <VTextField
-                    v-model="item.email"
-                    :error-messages="errors.collect('email')"
-                    label="Email *"
-                    name="email"
-                    v-validate="'required|email'"
-                    type="email"
-                    outline
-                    background-color="white elevation-1"
-                  />
-                </VFlex>
-                <VFlex xs12>
-                  <VTextField
-                    v-model="item.password"
-                    :error-messages="errors.collect('password')"
-                    label="Password *"
-                    name="password"
-                    type="password"
-                    v-validate="'required'"
-                    outline
-                    background-color="white elevation-1"
-                    ref="password"
-                  />
-                </VFlex>
-                <VFlex xs12>
-                  <VTextField
-                    v-model="item.phoneNumber"
-                    :error-messages="errors.collect('Phone Number')"
-                    label="Phone Number"
-                    name="Phone Number"
-                    outline
-                    background-color="white elevation-1"
-                  />
-                </VFlex>
+                <VLayout row>
+                  <VFlex xs5>
+                    <VTextField
+                      v-validate="'required'"
+                      v-model="item.familyName"
+                      :error-messages="errors.collect('family name')"
+                      label="Family Name *"
+                      name="family name"
+                      outline
+                      background-color="white elevation-1"
+                    />
+                  </VFlex>
+                  <VFlex xs6 offset-xs1>
+                    <VTextField
+                      v-validate="'required'"
+                      v-model="item.organization"
+                      :error-messages="errors.collect('organization')"
+                      label="Organization *"
+                      name="organization"
+                      outline
+                      background-color="white elevation-1"
+                    />
+                  </VFlex>
+                </VLayout>
+
+                <VLayout row>
+                  <VFlex xs5>
+                    <VTextField
+                      v-model="item.position"
+                      label="Position"
+                      name="position"
+                      outline
+                      background-color="white elevation-1"
+                    />
+                  </VFlex>
+                  <VFlex xs6 offset-xs1>
+                    <VTextField
+                      v-model="item.email"
+                      :error-messages="errors.collect('email')"
+                      label="Email *"
+                      name="email"
+                      v-validate="'required|email'"
+                      type="email"
+                      outline
+                      background-color="white elevation-1"
+                    />
+                  </VFlex>
+                </VLayout>
+
+                <VLayout row>
+                  <VFlex xs5>
+                    <VueTelInput
+                      name="phoneNumber"
+                      :error-messages="errors.collect('phoneNumber')"
+                      v-validate="'required'"
+                      v-model="item.phoneNumber"
+                      @onInput="onPhoneInput"
+                      :preferred-countries="[]"
+                    >
+                    </VueTelInput>
+                  </VFlex>
+                  <VFlex xs6 offset-xs1>
+                    <VTextField
+                      v-model="item.password"
+                      :error-messages="errors.collect('password')"
+                      label="Password *"
+                      name="password"
+                      type="password"
+                      v-validate="'required'"
+                      outline
+                      background-color="white elevation-1"
+                      ref="password"
+                    />
+                  </VFlex>
+                </VLayout>
               </VLayout>
             </VFlex>
           </VLayout>
@@ -102,14 +144,18 @@
 <script>
 import { UserAccountAPI } from '@/api';
 import ProfilePictureUpload from './ProfilePictureUpload.vue';
+import 'vue-tel-input/dist/vue-tel-input.css';
+import VueTelInput from 'vue-tel-input';
 
 export default {
   name: 'UserCreate',
   components: {
-    ProfilePictureUpload
+    ProfilePictureUpload,
+    VueTelInput
   },
   data() {
     return {
+      titles: ['Mr', 'Mrs'],
       resourceName: 'User',
       errorMessage: null,
       item: {}
@@ -134,6 +180,9 @@ export default {
           this.errorMessage = messages;
         }
       }
+    },
+    onPhoneInput({ number, isValid, country }) {
+      console.log(number, isValid, country);
     }
   }
 };
