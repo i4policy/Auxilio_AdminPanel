@@ -60,17 +60,17 @@ export default {
         {
           title: 'Dashboard',
           icon: 'dashboard',
-          path: '/app'
+          path: ''
         },
         {
           title: 'Post Categories',
           icon: 'settings',
-          path: '/app/categories'
+          path: '/categories'
         },
         {
           title: 'Users',
           icon: 'account_box',
-          path: '/app/users'
+          path: '/users'
         }
       ]
     };

@@ -12,7 +12,10 @@ const AuthService = {
       const profile = JSON.stringify({
         profilePicture: res.profilePicture,
         title: res.title,
-        fullName: res.fullName,
+        givenName: res.givenName,
+        familyName: res.familyName,
+        organization: res.organization,
+        position: res.position,
         email: res.email,
         role: res.role
       });
