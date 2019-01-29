@@ -71,6 +71,16 @@ export default {
           title: 'Users',
           icon: 'account_box',
           path: '/users'
+        },
+        {
+          title: 'Feedbacks',
+          icon: 'comment',
+          path: '/feedbacks'
+        },
+        {
+          title: 'Issues',
+          icon: 'bell',
+          path: '/issues'
         }
       ]
     };

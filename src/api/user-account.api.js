@@ -2,6 +2,7 @@ import { API_ROOT } from './index';
 import Request from './request';
 
 const PATH = '/UserAccounts';
+const FEEDBACK_PATH = '/UserFeedbacks';
 
 const UserAccountAPI = {
   get(id) {
@@ -29,7 +30,20 @@ const UserAccountAPI = {
   },
   updateMember(data) {
     return Request.patch(`${API_ROOT}${PATH}/update-member`, { body: data });
-  }
+  },
+  allFeedbacks(filter) {
+    return Request.get(`${API_ROOT}${FEEDBACK_PATH}`, {
+      params: filter
+    });
+  },
+  allIssues(filter) {
+    return Request.get(`${API_ROOT}${FEEDBACK_PATH}`, {
+      params: filter
+    });
+  },
+  removeFeedback(id) {
+    return Request.delete(`${API_ROOT}${FEEDBACK_PATH}/${id}`);
+  },
 };
 
 export default UserAccountAPI;

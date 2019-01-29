@@ -6,6 +6,8 @@ import Login from '@/components/Login.vue';
 import AuthLayout from '@/components/AuthLayout.vue';
 import NotFoundPage from '@/components/404.vue';
 import UserList from '@/components/users/UserList.vue';
+import FeedbackList from '@/components/feedbacks/FeedbackList.vue';
+import IssueList from '@/components/issues/IssueList.vue';
 import UserCreate from '@/components/users/UserCreate.vue';
 import UserUpdate from '@/components/users/UserUpdate.vue';
 import PostCategoryList from '@/components/post-categories/PostCategoryList.vue';
@@ -58,6 +60,16 @@ const router = new Router({
           path: 'category-update/:id',
           name: 'category-update',
           component: PostCategoryUpdate
+        },
+        {
+          path: 'feedbacks',
+          name: 'feedback-list',
+          component: FeedbackList
+        },
+        {
+          path: 'issues',
+          name: 'issue-list',
+          component: IssueList
         }
       ]
     },
