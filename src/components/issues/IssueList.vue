@@ -36,6 +36,7 @@
                 <td>{{ index + 1 }}</td>
                 <td>{{ item.user && `${item.user.givenName} ${item.user.familyName}` }}</td>
                 <td>{{ item.urgencyLevel }}</td>
+                <td>{{ item.subject }}</td>
                 <td>{{ item.description }}</td>
                 <td>
                   <VMenu offset-x left bottom>
@@ -84,6 +85,7 @@ export default {
         { textKey: '#', value: 'id', sortable: false },
         { textKey: 'Full Name', value: 'givenName' },
         { textKey: 'UrgencyLevel', value: 'urgencyLevel' },
+        { textKey: 'Subject', value: 'subject' },
         { textKey: 'Description', value: 'description' },
         { textKey: 'Actions', value: 'actions', sortable: false }
       ]
