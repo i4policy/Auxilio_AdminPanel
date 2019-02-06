@@ -49,6 +49,14 @@
                 <td>{{ item.email }}</td>
                 <td>{{ item.role && item.role.name }}</td>
                 <td>
+                  <VChip v-if="item.status == 'ACTIVE'" color="primary" text-color="white">{{
+                    item.status
+                  }}</VChip>
+                  <VChip v-if="item.status == 'INACTIVE'" color="red" text-color="white">{{
+                    item.status
+                  }}</VChip>
+                </td>
+                <td>
                   <VMenu offset-x left bottom>
                     <VBtn slot="activator" icon> <VIcon>more_vert</VIcon> </VBtn>
 
@@ -61,6 +69,22 @@
                         <VListTileTitle>Edit</VListTileTitle>
                       </VListTile>
 
+                      <VListTile
+                        v-if="item.status == 'INACTIVE'"
+                        ripple
+                        @click="approveUser(item.id)"
+                      >
+                        <VListTileAction> <VIcon>check</VIcon> </VListTileAction>
+                        <VListTileTitle>Activate</VListTileTitle>
+                      </VListTile>
+                      <VListTile
+                        v-if="item.status == 'ACTIVE'"
+                        ripple
+                        @click="disapproveUser(item.id)"
+                      >
+                        <VListTileAction> <VIcon>close</VIcon> </VListTileAction>
+                        <VListTileTitle>Deactivate</VListTileTitle>
+                      </VListTile>
                       <VListTile ripple @click="deleteItem(item.id)">
                         <VListTileAction> <VIcon>delete</VIcon> </VListTileAction>
                         <VListTileTitle>Delete</VListTileTitle>
@@ -109,6 +133,7 @@ export default {
         { textKey: 'Phone Number', value: 'phoneNumber' },
         { textKey: 'Email', value: 'email' },
         { textKey: 'Role', value: 'role' },
+        { textKey: 'Status', value: 'status' },
         { textKey: 'Actions', value: 'actions', sortable: false }
       ]
     };
@@ -145,6 +170,29 @@ export default {
         });
         this.loadData();
       }
+    },
+    async approveUser(userId) {
+      const data = { userObj: { userIds: [userId] } };
+      await UserAccountAPI.approveUser(data);
+      this.$notify({
+        type: 'success',
+        title: 'Success',
+        message: 'user activated'
+      });
+      const index = this.items.findIndex(item => item.id === userId);
+      this.items[index].status = 'ACTIVE';
+    },
+    async disapproveUser(userId) {
+      const data = { userObj: { userIds: [userId] } };
+      await UserAccountAPI.disapproveUser(data);
+      this.$notify({
+        type: 'success',
+        title: 'Success',
+        message: 'user deactivated'
+      });
+
+      const index = this.items.findIndex(item => item.id === userId);
+      this.items[index].status = 'INACTIVE';
     }
   },
   watch: {

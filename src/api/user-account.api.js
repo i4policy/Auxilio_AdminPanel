@@ -44,6 +44,13 @@ const UserAccountAPI = {
   removeFeedback(id) {
     return Request.delete(`${API_ROOT}${FEEDBACK_PATH}/${id}`);
   },
+  approveUser(data) {
+    console.log(data);
+    return Request.post(`${API_ROOT}${PATH}/approve-user`, data);
+  },
+  disapproveUser(data) {
+    return Request.post(`${API_ROOT}${PATH}/disapprove-user`, data);
+  },
 };
 
 export default UserAccountAPI;

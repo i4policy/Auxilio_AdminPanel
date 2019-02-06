@@ -29,7 +29,7 @@ const router = new Router({
         {
           path: '',
           name: 'home',
-          component: Dashboard
+          component: UserList
         },
         {
           path: 'users',
