@@ -97,7 +97,7 @@
                 </VLayout>
 
                 <VLayout row>
-                  <VFlex xs5>
+                <VFlex xs5>
                     <VueTelInput
                       name="phoneNumber"
                       :error-messages="errors.collect('phoneNumber')"

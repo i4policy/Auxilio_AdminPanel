@@ -2,9 +2,7 @@
   <VToolbar fixed app dark dense clipped-left color="navbarColor" height="64" class="on-top">
     <VToolbarSideIcon @click="toggleNavBar()" />
     <img height="64" src="@/assets/logo.png" />
-    <VToolbarTitle class="align-center">
-      <span class="display-1 font-weight-bold primary--text">{{ appName }}</span>
-    </VToolbarTitle>
+    <img height="22" src="@/assets/logo.svg" class="site-logo">
     <VSpacer />
     <VToolbarItems>
       <VMenu

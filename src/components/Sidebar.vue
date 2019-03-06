@@ -79,7 +79,7 @@ export default {
         },
         {
           title: 'Issues',
-          icon: 'bell',
+          icon: 'note',
           path: '/issues'
         }
       ]
