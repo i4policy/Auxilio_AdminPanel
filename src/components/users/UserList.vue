@@ -40,11 +40,10 @@
               </template>
               <template slot="items" slot-scope="{ index, item }">
                 <td>{{ index + 1 }}</td>
-                <td>{{ item.title }}</td>
                 <td>{{ item.givenName }}</td>
                 <td>{{ item.familyName }}</td>
                 <td>{{ item.organization }}</td>
-                <td>{{ item.position }}</td>
+                <td>{{ item.country }}</td>
                 <td>{{ item.phoneNumber }}</td>
                 <td>{{ item.email }}</td>
                 <td>{{ item.role && item.role.name }}</td>
@@ -125,11 +124,10 @@ export default {
       searchField: 'givenName',
       headers: [
         { textKey: '#', value: 'id', sortable: false },
-        { textKey: 'Title', value: 'title' },
         { textKey: 'Given Name', value: 'givenName' },
         { textKey: 'Family Name', value: 'familyName' },
         { textKey: 'Organization', value: 'organization' },
-        { textKey: 'Postition', value: 'position' },
+        { textKey: 'Country', value: 'country' },
         { textKey: 'Phone Number', value: 'phoneNumber' },
         { textKey: 'Email', value: 'email' },
         { textKey: 'Role', value: 'role' },

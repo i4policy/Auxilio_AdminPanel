@@ -3,6 +3,7 @@ import './plugins/vuetify-confirm';
 import './plugins/vuetify';
 import './plugins/vee-validate';
 import './plugins/vue-notify';
+import './plugins/vue-country-select';
 import shared from '@/shared/components';
 
 import App from './App.vue';

@@ -13,6 +13,7 @@
     "lodash.debounce": "^4.0.8",
     "vee-validate": "^2.1.4",
     "vue": "^2.5.17",
+    "vue-country-region-select": "^2.0.4",
     "vue-notifyjs": "^0.4.3",
     "vue-router": "^3.0.1",
     "vue-swatches": "^1.0.2",

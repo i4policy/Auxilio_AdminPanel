@@ -3,6 +3,7 @@ import Request from './request';
 
 const PATH = '/UserAccounts';
 const FEEDBACK_PATH = '/UserFeedbacks';
+const ROLE_PATH = '/UserRoles';
 
 const UserAccountAPI = {
   get(id) {
@@ -51,6 +52,9 @@ const UserAccountAPI = {
   disapproveUser(data) {
     return Request.post(`${API_ROOT}${PATH}/disapprove-user`, data);
   },
+  getRoles() {
+    return Request.get(`${API_ROOT}${ROLE_PATH}`);
+  }
 };
 
 export default UserAccountAPI;

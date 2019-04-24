@@ -23,7 +23,7 @@
             <VFlex xs8>
               <VLayout column>
                 <VLayout row>
-                  <VFlex xs5>
+                  <!-- <VFlex xs5>
                     <VSelect
                       :error-messages="errors.collect('title')"
                       v-validate="'required'"
@@ -33,8 +33,8 @@
                       label="Title"
                       solo
                     ></VSelect>
-                  </VFlex>
-                  <VFlex xs6 offset-xs1>
+                  </VFlex> -->
+                  <VFlex xs5 offset-xs1>
                     <VTextField
                       v-validate="'required'"
                       v-model="item.givenName"
@@ -45,10 +45,7 @@
                       background-color="white elevation-1"
                     />
                   </VFlex>
-                </VLayout>
-
-                <VLayout row>
-                  <VFlex xs5>
+                  <VFlex xs5 offset-xs1>
                     <VTextField
                       v-validate="'required'"
                       v-model="item.familyName"
@@ -59,21 +56,26 @@
                       background-color="white elevation-1"
                     />
                   </VFlex>
-                  <VFlex xs6 offset-xs1>
+                </VLayout>
+
+                <VLayout row>
+                  <VFlex xs5 offset-xs1>
                     <VTextField
-                      v-validate="'required'"
                       v-model="item.organization"
                       :error-messages="errors.collect('organization')"
-                      label="Organization *"
+                      label="Organization"
                       name="organization"
                       outline
                       background-color="white elevation-1"
                     />
                   </VFlex>
+                  <VFlex xs5 offset-xs1>
+                    <CountrySelect v-model="item.country" :country="country" top-country="US" />
+                  </VFlex>
                 </VLayout>
 
                 <VLayout row>
-                  <VFlex xs5>
+                  <!-- <VFlex xs5>
                     <VTextField
                       v-model="item.position"
                       label="Position"
@@ -81,8 +83,8 @@
                       outline
                       background-color="white elevation-1"
                     />
-                  </VFlex>
-                  <VFlex xs6 offset-xs1>
+                  </VFlex> -->
+                  <VFlex xs5 offset-xs1>
                     <VTextField
                       v-model="item.email"
                       :error-messages="errors.collect('email')"
@@ -94,10 +96,7 @@
                       background-color="white elevation-1"
                     />
                   </VFlex>
-                </VLayout>
-
-                <VLayout row>
-                <VFlex xs5>
+                  <VFlex xs5 offset-xs1>
                     <VueTelInput
                       name="phoneNumber"
                       :error-messages="errors.collect('phoneNumber')"
@@ -108,7 +107,22 @@
                     >
                     </VueTelInput>
                   </VFlex>
-                  <VFlex xs6 offset-xs1>
+                </VLayout>
+                <VLayout row>
+                  <VFlex xs5 offset-xs1>
+                    <VSelect
+                      :error-messages="errors.collect('role')"
+                      v-validate="'required'"
+                      name="role"
+                      :items="roles"
+                      item-text="name"
+                      item-value="id"
+                      v-model="item.roleId"
+                      label="Role"
+                      solo
+                    ></VSelect>
+                  </VFlex>
+                  <VFlex xs5 offset-xs1>
                     <VTextField
                       v-model="item.password"
                       :error-messages="errors.collect('password')"
@@ -158,10 +172,14 @@ export default {
       titles: ['Mr', 'Mrs'],
       resourceName: 'User',
       errorMessage: null,
-      item: {}
+      item: {},
+      country: '',
+      roles: []
     };
   },
-
+  async created() {
+    this.roles = (await UserAccountAPI.getRoles()).rows;
+  },
   methods: {
     async save() {
       const valid = await this.$validator.validateAll();
