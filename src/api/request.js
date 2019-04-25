@@ -60,6 +60,7 @@ Request.interceptors.response.use(
           type: 'danger',
           message: 'Unauthorized Access.'
         });
+        this.$router.push({ name: 'login' });
       }
       throw err.response.data.error;
     }

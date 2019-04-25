@@ -1,8 +1,7 @@
 <template>
   <VToolbar fixed app dark dense clipped-left color="navbarColor" height="64" class="on-top">
     <VToolbarSideIcon @click="toggleNavBar()" />
-    <img height="64" src="@/assets/logo.png" />
-    <img height="22" src="@/assets/logo.svg" class="site-logo">
+    <img height="30" src="@/assets/logo.png" />
     <VSpacer />
     <VToolbarItems>
       <VMenu
