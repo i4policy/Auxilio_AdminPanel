@@ -44,7 +44,6 @@
                 <td>{{ item.familyName }}</td>
                 <td>{{ item.organization }}</td>
                 <td>{{ item.country }}</td>
-                <td>{{ item.phoneNumber }}</td>
                 <td>{{ item.email }}</td>
                 <td>{{ item.role && item.role.name }}</td>
                 <td>
@@ -128,7 +127,6 @@ export default {
         { textKey: 'Family Name', value: 'familyName' },
         { textKey: 'Organization', value: 'organization' },
         { textKey: 'Country', value: 'country' },
-        { textKey: 'Phone Number', value: 'phoneNumber' },
         { textKey: 'Email', value: 'email' },
         { textKey: 'Role', value: 'role' },
         { textKey: 'Status', value: 'status' },

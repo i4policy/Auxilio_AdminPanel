@@ -97,18 +97,6 @@
                     />
                   </VFlex>
                   <VFlex xs5 offset-xs1>
-                    <VueTelInput
-                      name="phoneNumber"
-                      :error-messages="errors.collect('phoneNumber')"
-                      v-validate="'required'"
-                      v-model="item.phoneNumber"
-                      @onInput="onPhoneInput"
-                      :preferred-countries="[]"
-                    ></VueTelInput>
-                  </VFlex>
-                </VLayout>
-                <VLayout row>
-                  <VFlex xs5 offset-xs1>
                     <VSelect
                       :error-messages="errors.collect('role')"
                       v-validate="'required'"
@@ -121,6 +109,8 @@
                       solo
                     ></VSelect>
                   </VFlex>
+                </VLayout>
+                <VLayout row>
                   <VFlex xs5 offset-xs1>
                     <VTextField
                       v-model="item.password"
